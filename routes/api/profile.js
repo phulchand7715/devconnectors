@@ -4,6 +4,7 @@ const auth = require("../../middlewares/auth");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
+const { profile_url } = require("gravatar");
 
 // @route   GET /api/profile/me
 // @desc    Get current user's profile
@@ -205,5 +206,27 @@ router.put(
     }
   }
 );
+
+// @route   DELETE /api/experience:exp_id
+// @desc    Delete a Experience
+// @access  Private
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    // Get Profile
+    const profile = await Profile.findOneAndDelete({ user: req.user.id });
+    //Get index of Experience
+    const removeIndex = profile.experience
+      .map((item) => item.id)
+      .indexOf(req.params.exp_id);
+
+    profile.experience.splice(removeIndex, 1);
+    await profile.save();
+
+    res.json(profile);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error.");
+  }
+});
 
 module.exports = router;
