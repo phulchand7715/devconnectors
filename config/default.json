@@ -1,5 +1,6 @@
 {
    "mongoURI" : "mongodb+srv://phulchand1023:DataV2@practiseprojects.ysijszk.mongodb.net/devConnect",
-   "jwtsecret" : "mysecrettoken"
-   
-}
+   "jwtsecret" : "mysecrettoken",
+   "githubClientID" : "Ov23liiCezoLY9WZfjWR",
+   "githubSecretID" : "319dae9be695f9cec2de686b52ff510004ae293d"
+ }
